@@ -70,7 +70,7 @@ def role_admin():
     for action in access.actions:
         actions[action.value] = DynamicPermission(action).allows(identity)
 
-    message = 'You are opening a page limited to action read'
+    message = ''
     return render_template("base.html",
                            message=message,
                            actions=actions,
@@ -86,7 +86,7 @@ def role_content_submission():
     for action in access.actions:
         actions[action.value] = DynamicPermission(action).allows(identity)
 
-    message = 'You are opening a page limited to action read'
+    message = ''
     return render_template("invenio_access/limited.html",
                            message=message,
                            actions=actions,
@@ -103,7 +103,7 @@ def content_contributors_admin():
     for action in access.actions:
         actions[action.value] = DynamicPermission(action).allows(identity)
 
-    message = 'You are opening a page limited to action read'
+    message = ''
     return render_template("base.html",
                            message=message,
                            actions=actions,
@@ -119,7 +119,7 @@ def role_visitors():
     for action in access.actions:
         actions[action.value] = DynamicPermission(action).allows(identity)
 
-    message = 'You are opening a page limited to action read'
+    message = ''
     return render_template("base.html",
                            message=message,
                            actions=actions,
