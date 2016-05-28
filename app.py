@@ -13,7 +13,7 @@ from invenio_db import InvenioDB
 
 from invenio_access import InvenioAccess
 from invenio_access.permissions import DynamicPermission
-
+from action_setting import *
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
@@ -42,9 +42,9 @@ access.register_action(action_approve_content)
 action_reject_content = ActionNeed('reject_content')
 access.register_action(action_reject_content)
 
+
 @app.route("/")
 def index():
-    """Basic test view."""
     identity = g.identity
     actions = {}
     for action in access.actions:
@@ -83,8 +83,9 @@ content_submission_permission = DynamicPermission(RoleNeed('content_submission')
 def role_content_submission():
     identity = g.identity
     actions = {}
-    for action in access.actions:
-        actions[action.value] = DynamicPermission(action).allows(identity)
+    actions[action_approve_content.value] = action_approve_content_permission.allows(identity)
+    actions[action_reject_content.value] = action_reject_content_permission.allows(identity)
+
 
     message = ''
     return render_template("invenio_access/limited.html",
@@ -97,11 +98,11 @@ def role_content_submission():
 content_contributors_permission = DynamicPermission(RoleNeed('content_contributors'))
 @app.route('/role_content_contributors')
 @content_contributors_permission.require()
-def content_contributors_admin():
+def role_content_contributors():
     identity = g.identity
     actions = {}
-    for action in access.actions:
-        actions[action.value] = DynamicPermission(action).allows(identity)
+
+    actions[action_upload_content.value] = upload_content_permission.allows(identity)
 
     message = ''
     return render_template("base.html",
@@ -116,9 +117,7 @@ visitors_permission = DynamicPermission(RoleNeed('visitors'))
 def role_visitors():
     identity = g.identity
     actions = {}
-    for action in access.actions:
-        actions[action.value] = DynamicPermission(action).allows(identity)
-
+    actions[action_read.value] = action_read_permission.allows(identity)
     message = ''
     return render_template("base.html",
                            message=message,
