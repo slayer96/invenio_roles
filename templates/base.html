@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home (Open to everyone)</a></li>
+        <li><a href="{{ url_for('role_admin') }}">Role admin (Only users with role 'admin') </a></li>
+        <li><a href="{{ url_for('action_open') }}">Action open (Only users with action 'open' allowed)</a></li>
+        <li><a href="{{ url_for('action_read') }}">Action delete (Only users with action 'read' allowed)</a></li>
+    </ul>
+
+    {%- block page_body %}{%- endblock page_body %}
+    <p>The current application is using the next actions. The red ones are not allowed yo your current user.</p>
+    <ul>
+        {% for action in actions.keys() %}
+            {% if actions[action] %}
+                <li style="color: green">{{action}}</li>
+            {% else: %}
+                <li style="color: red">{{action}}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+  </body>
+</html>
