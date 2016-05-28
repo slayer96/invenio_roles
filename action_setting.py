@@ -26,7 +26,7 @@ access.register_action(action_read)
 read_permission = DynamicPermission(action_read)
 @app.route('/action_read')
 @read_permission.require()
-def action_open():
+def action_read():
     identity = g.identity
     actions = {}
     for action in access.actions:
@@ -44,7 +44,7 @@ access.register_action(action_add_content)
 add_content_permission = DynamicPermission(action_add_content)
 @app.route('/action_add_content')
 @add_content_permission.require()
-def action_open():
+def action_add_content ():
     identity = g.identity
     actions = {}
     for action in access.actions:
@@ -62,7 +62,7 @@ access.register_action(action_approve_content)
 action_approve_content_permission = DynamicPermission(action_approve_content)
 @app.route('/action_approve_content')
 @action_approve_content_permission.require()
-def action_open():
+def action_approve_content():
     identity = g.identity
     actions = {}
     for action in access.actions:
@@ -80,7 +80,7 @@ access.register_action(action_reject_content)
 action_reject_content_permission = ActionNeed(action_reject_content)
 @app.route('/action_reject_content')
 @action_reject_content_permission.require()
-def action_open():
+def action_reject_content():
     identity = g.identity
     actions = {}
     for action in access.actions:
