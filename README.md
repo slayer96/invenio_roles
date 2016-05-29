@@ -1,8 +1,7 @@
 Create database and tables:
 
-   $ cd examples
-   $ flask -a app.py db init
-   $ flask -a app.py db create
+    $ flask -a app.py db init
+    $ flask -a app.py db create
    
    
 Create some users:
